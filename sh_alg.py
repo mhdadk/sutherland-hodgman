@@ -1,4 +1,3 @@
-import numpy as np
 
 """
 Given a subject polygon defined by the vertices in clockwise order
@@ -104,23 +103,29 @@ def clip(subject_polygon,clipping_polygon):
         # these two vertices define a line segment (edge) in the clipping
         # polygon. It is assumed that indices wrap around, such that if
         # i = 1, then i - 1 = K.
-        c_vertex1 = clipping_polygon[i]
-        c_vertex2 = clipping_polygon[i - 1]
+        c_edge_start = clipping_polygon[i - 1]
+        c_edge_end = clipping_polygon[i]
         
-        for j in range(len(subject_polygon)):
+        for j in range(len(next_polygon)):
             
             # these two vertices define a line segment (edge) in the subject
             # polygon
-            s_vertex1 = next_polygon[j]
-            s_vertex2 = next_polygon[j - 1]
+            s_edge_start = next_polygon[j - 1]
+            s_edge_end = next_polygon[j]
             
-            if is_inside(c_vertex1,c_vertex2,s_vertex2):
-                if not is_inside(c_vertex1,c_vertex2,s_vertex1):
-                    intersection = compute_intersection(s_vertex1,s_vertex2,c_vertex1,c_vertex2)
+            if is_inside(c_edge_start,c_edge_end,s_edge_end):
+                if not is_inside(c_edge_start,c_edge_end,s_edge_start):
+                    intersection = compute_intersection(s_edge_start,s_edge_end,c_edge_start,c_edge_end)
                     final_polygon.append(intersection)
-                final_polygon.append(s_vertex2)
-            elif is_inside(c_vertex1,c_vertex2,s_vertex1):
-                intersection = compute_intersection(s_vertex1,s_vertex2,c_vertex1,c_vertex2)
+                final_polygon.append(s_edge_end)
+            elif is_inside(c_edge_start,c_edge_end,s_edge_start):
+                intersection = compute_intersection(s_edge_start,s_edge_end,c_edge_start,c_edge_end)
                 final_polygon.append(intersection)
     
     return final_polygon
+
+if __name__ == '__main__':
+    subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
+    clipping_polygon = [(0,0),(0,2),(2,2),(1,0)]
+    clipped_polygon = clip(subject_polygon,clipping_polygon)
+    
