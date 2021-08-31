@@ -11,7 +11,7 @@ clipping_polygon = [(x_1,y_1),(x_2,y_2),...,(x_K,y_K)]
 
 and assuming that the subject polygon and clipping polygon overlap,
 the Sutherland-Hodgman algorithm works as follows:
-    
+
 for i = 1 to K:
     
     # this will  store the vertices of the final clipped polygon
@@ -67,24 +67,87 @@ for i = 1 to K:
 """
 
 def is_inside(p1,p2,q):
+    """
+    See
+    https://math.stackexchange.com/a/274728/652310
+    for an explanation
+    """
     R = (p2[0] - p1[0]) * (q[1] - p1[1]) - (p2[1] - p1[1]) * (q[0] - p1[0])
-    if R < 0:
+    if R <= 0:
         return True
     else:
         return False
 
 def compute_intersection(p1,p2,p3,p4):
     
-    # if this is really small, then the line segments are almost coincident
-    den = (p1[0] - p2[0]) * (p3[1] - p4[1]) - (p1[1] - p2[1]) * (p3[0] - p4[0])
+    """
+    given points p1 and p2 on line L1, compute the equation of L1 in the
+    format of y = m1 * x + b1. Also, given points p3 and p4 on line L2,
+    compute the equation of L2 in the format of y = m2 * x + b2.
     
-    num_x = ((p1[0] * p2[1] - p1[1] * p2[0]) * (p3[0] - p4[0])
-           - (p1[0] * p2[0]) * (p3[0] * p4[1] - p3[1] * p4[0]))
+    To compute the point of intersection of the two lines, equate
+    the two line equations together
     
-    num_y = ((p1[0] * p2[1] - p1[1] * p2[0]) * (p3[1] - p4[1])
-           - (p1[1] * p2[1]) * (p3[0] * p4[1] - p3[1] * p4[0]))
+    m1 * x + b1 = m2 * x + b2
     
-    intersection = (num_x/den,num_y/den)
+    and solve for x. Once x is obtained, substitute it into one of the
+    equations to obtain the value of y.    
+    """
+    
+    """
+    if one of the lines is vertical, then the x-coordinate of the point of
+    intersection will be the x-coordinate of the vertical line. Note that
+    there is no need to check if both lines are vertical (parallel), since
+    this function is only called if we know that the lines intersect.
+    """
+    
+    # if first line is vertical
+    if p2[0] - p1[0] == 0:
+        x = p1[0]
+        
+        # slope and intercept of second line
+        m2 = (p4[1] - p3[1]) / (p4[0] - p3[0])
+        b2 = p3[1] - m2 * p3[0]
+        
+        # y-coordinate of intersection
+        y = m2 * x + b2
+    
+    # if second line is vertical
+    elif p4[0] - p3[0] == 0:
+        x = p3[0]
+        
+        # slope and intercept of first line
+        m1 = (p2[1] - p1[1]) / (p2[0] - p1[0])
+        b1 = p1[1] - m1 * p1[0]
+        
+        # y-coordinate of intersection
+        y = m1 * x + b1
+    
+    # if neither line is vertical
+    else:
+        m1 = (p2[1] - p1[1]) / (p2[0] - p1[0])
+        b1 = p1[1] - m1 * p1[0]
+        
+        # slope and intercept of second line
+        m2 = (p4[1] - p3[1]) / (p4[0] - p3[0])
+        b2 = p3[1] - m2 * p3[0]
+    
+        # x-coordinate of intersection
+        x = (b2 - b1) / (m1 - m2)
+    
+        # y-coordinate of intersection
+        y = m1 * x + b1
+    
+    # # if this is really small, then the line segments are almost coincident
+    # den = (p1[0] - p2[0]) * (p3[1] - p4[1]) - (p1[1] - p2[1]) * (p3[0] - p4[0])
+    
+    # num_x = ((p1[0] * p2[1] - p1[1] * p2[0]) * (p3[0] - p4[0])
+    #        - (p1[0] * p2[0]) * (p3[0] * p4[1] - p3[1] * p4[0]))
+    
+    # num_y = ((p1[0] * p2[1] - p1[1] * p2[0]) * (p3[1] - p4[1])
+    #        - (p1[1] * p2[1]) * (p3[0] * p4[1] - p3[1] * p4[0]))
+    
+    intersection = (x,y)#(num_x/den,num_y/den)
     
     return intersection
 
@@ -125,7 +188,24 @@ def clip(subject_polygon,clipping_polygon):
     return final_polygon
 
 if __name__ == '__main__':
+    # squares
     subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
-    clipping_polygon = [(0,0),(0,2),(2,2),(1,0)]
+    clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
+    
+    # squares: different order of points
+    subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
+    clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
+    
+    # triangles
+    subject_polygon = [(0,0),(2,1),(2,0)]
+    clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
+    
+    # star and square
+    subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
+    clipping_polygon = [(-2,-2),(-2,2),(2,2),(2,-2)]
+    
+    # star and triangle
+    subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
+    clipping_polygon = [(0,2),(2,-2),(-2,-2)]
     clipped_polygon = clip(subject_polygon,clipping_polygon)
     
