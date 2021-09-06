@@ -189,23 +189,23 @@ def clip(subject_polygon,clipping_polygon):
 
 if __name__ == '__main__':
     # squares
-    subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
-    clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
+    # subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
+    # clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
     
     # squares: different order of points
-    subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
-    clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
+    # subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
+    # clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
     
-    # triangles
-    subject_polygon = [(0,0),(2,1),(2,0)]
-    clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
+    # # triangles
+    # subject_polygon = [(0,0),(2,1),(2,0)]
+    # clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
     
-    # star and square
+    # # star and square
     subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
     clipping_polygon = [(-2,-2),(-2,2),(2,2),(2,-2)]
     
-    # star and triangle
-    subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
-    clipping_polygon = [(0,2),(2,-2),(-2,-2)]
+    # # star and triangle
+    # subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
+    # clipping_polygon = [(0,2),(2,-2),(-2,-2)]
     clipped_polygon = clip(subject_polygon,clipping_polygon)
     
