@@ -62,7 +62,7 @@ C = np.array([[x_1,y_1],
 
 For example, suppose that the subject polygon `S` and the clipping polygon `C` are:
 
-<img src="figures/step1.svg"/>
+<img src="figures/step1.svg" style="zoom:125%;" />
 
 <div style="text-align:center;font-weight:bold"">Figure 1</div>
 
