@@ -115,10 +115,10 @@ C = np.array([[x_1,y_1],
 
 CODE:
 
+# create a copy of the S array
 output = copy(S)
 
 for i = 1 to M:
-	
 	# to save the vertices of the new (clipped) subject polygon
     next_S = copy(output)
     
