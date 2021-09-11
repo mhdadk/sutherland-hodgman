@@ -95,10 +95,8 @@ class PolygonClipper:
         m1 * x + b1 = m2 * x + b2
         
         and solve for x. Once x is obtained, substitute it into one of the
-        equations to obtain the value of y.    
-        """
+        equations to obtain the value of y.
         
-        """
         if one of the lines is vertical, then the x-coordinate of the point of
         intersection will be the x-coordinate of the vertical line. Note that
         there is no need to check if both lines are vertical (parallel), since
@@ -186,37 +184,37 @@ class PolygonClipper:
         clipped_polygon = self.clip(A,B)
         if len(clipped_polygon) == 0 and self.warn_if_empty:
             warnings.warn("No intersections found. Are you sure your \
-                           polygon coordinates are in clockwise order?")
+                          polygon coordinates are in clockwise order?")
         
         return clipped_polygon
 
 if __name__ == '__main__':
     
+    # some test polygons
+    
     clip = PolygonClipper()
     
     # squares
-    subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
-    clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
+    # subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
+    # clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
     
     # squares: different order of points
-    subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
-    clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
+    # subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
+    # clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
     
     # triangles
-    subject_polygon = [(0,0),(2,1),(2,0)]
-    clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
+    # subject_polygon = [(0,0),(2,1),(2,0)]
+    # clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
     
     # star and square
     subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
     clipping_polygon = [(-2,-2),(-2,2),(2,2),(2,-2)]
     
     # star and triangle
-    subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
-    clipping_polygon = [(0,2),(2,-2),(-2,-2)]
-    clipped_polygon1 = clip(subject_polygon,clipping_polygon)
+    # subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
+    # clipping_polygon = [(0,2),(2,-2),(-2,-2)]
     
-    # check if works with numpy
     subject_polygon = np.array(subject_polygon)
     clipping_polygon = np.array(clipping_polygon)
-    clipped_polygon3 = clip(subject_polygon,clipping_polygon)
+    clipped_polygon = clip(subject_polygon,clipping_polygon)
     
