@@ -3,7 +3,42 @@
 
 ## Usage
 
+**NumPy**
 
+```python
+import numpy as np
+from SH import PolygonClipper
+
+subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
+clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
+subject_polygon = np.array(subject_polygon)
+clipping_polygon = np.array(clipping_polygon)
+
+clip = PolygonClipper(warn_if_empty = False)
+
+clipped_polygon = clip(subject_polygon,clipping_polygon)
+```
+
+Make sure that the vertices in `subject_polygon` and `clipping_polygon` are in clockwise order. If `warn_if_empty = True`, then you will get a warning if no intersections were found.
+
+ **PyTorch**
+
+```python
+import torch
+from SH_diff import PolygonClipper
+
+subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
+clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
+subject_polygon = torch.tensor(subject_polygon)
+clipping_polygon = torch.tensor(clipping_polygon).float()
+clipping_polygon.requires_grad = True
+
+clip = PolygonClipper(warn_if_empty = False)
+
+clipped_polygon = clip(subject_polygon,clipping_polygon)
+```
+
+It is assumed that `clipping_polygon` has `requires_grad = True` only. Make sure that the vertices in `subject_polygon` and `clipping_polygon` are in clockwise order. If `warn_if_empty = True`, then you will get a warning if no intersections were found.
 
 ## Explanation
 
