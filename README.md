@@ -164,3 +164,5 @@ for i = 1 to M:
 
 return output
 ```
+
+where the `compute_intersection` function is used to compute the point of intersection of the line connecting the points `s_vertex1` and `s_vertex2` and the line connecting the points `c_vertex1` and `c_vertex2`.
