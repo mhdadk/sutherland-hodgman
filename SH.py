@@ -66,17 +66,16 @@ for i = 1 to K:
 """
 
 import numpy as np
+import warnings
 
 # POINTS NEED TO BE PRESENTED CLOCKWISE OR ELSE THIS WONT WORK
 
 class PolygonClipper:
     
+    def __init___(self,warn_if_empty=True):
+        self.warn_if_empty = warn_if_empty
+    
     def is_inside(self,p1,p2,q):
-        """
-        See
-        https://math.stackexchange.com/a/274728/652310
-        for an explanation
-        """
         R = (p2[0] - p1[0]) * (q[1] - p1[1]) - (p2[1] - p1[1]) * (q[0] - p1[0])
         if R <= 0:
             return True
@@ -143,16 +142,7 @@ class PolygonClipper:
             # y-coordinate of intersection
             y = m1 * x + b1
         
-        # # if this is really small, then the line segments are almost coincident
-        # den = (p1[0] - p2[0]) * (p3[1] - p4[1]) - (p1[1] - p2[1]) * (p3[0] - p4[0])
-        
-        # num_x = ((p1[0] * p2[1] - p1[1] * p2[0]) * (p3[0] - p4[0])
-        #        - (p1[0] * p2[0]) * (p3[0] * p4[1] - p3[1] * p4[0]))
-        
-        # num_y = ((p1[0] * p2[1] - p1[1] * p2[0]) * (p3[1] - p4[1])
-        #        - (p1[1] * p2[1]) * (p3[0] * p4[1] - p3[1] * p4[0]))
-        
-        intersection = (x,y)#(num_x/den,num_y/den)
+        intersection = (x,y)
         
         return intersection
     
@@ -194,11 +184,11 @@ class PolygonClipper:
     
     def __call__(self,A,B):
         clipped_polygon = self.clip(A,B)
+        if len(clipped_polygon) == 0 and self.warn_if_empty:
+            warnings.warn("No intersections found. Are you sure your \
+                           polygon coordinates are in clockwise order?")
+        
         return clipped_polygon
-        # if len(clipped_polygon) == 0:
-        #     return 0
-        # else:
-        #     return self.compute_area(clipped_polygon)
 
 if __name__ == '__main__':
     
