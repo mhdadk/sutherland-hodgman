@@ -180,32 +180,40 @@ def clip(subject_polygon,clipping_polygon):
                 if not is_inside(c_edge_start,c_edge_end,s_edge_start):
                     intersection = compute_intersection(s_edge_start,s_edge_end,c_edge_start,c_edge_end)
                     final_polygon.append(intersection)
-                final_polygon.append(s_edge_end)
+                final_polygon.append(tuple(s_edge_end))
             elif is_inside(c_edge_start,c_edge_end,s_edge_start):
                 intersection = compute_intersection(s_edge_start,s_edge_end,c_edge_start,c_edge_end)
                 final_polygon.append(intersection)
     
-    return final_polygon
+    return np.asarray(final_polygon)
 
 if __name__ == '__main__':
+    
+    import numpy as np
+    
     # squares
-    # subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
-    # clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
+    subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
+    clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
     
     # squares: different order of points
-    # subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
-    # clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
+    subject_polygon = [(-1,-1),(-1,1),(1,1),(1,-1)]
+    clipping_polygon = [(2,0),(0,0),(0,2),(2,2)]
     
-    # # triangles
-    # subject_polygon = [(0,0),(2,1),(2,0)]
-    # clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
+    # triangles
+    subject_polygon = [(0,0),(2,1),(2,0)]
+    clipping_polygon = [(1,0.5),(3,1.5),(3,0.5)]
     
-    # # star and square
+    # star and square
     subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
     clipping_polygon = [(-2,-2),(-2,2),(2,2),(2,-2)]
     
-    # # star and triangle
-    # subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
-    # clipping_polygon = [(0,2),(2,-2),(-2,-2)]
-    clipped_polygon = clip(subject_polygon,clipping_polygon)
+    # star and triangle
+    subject_polygon = [(0,3),(0.5,0.5),(3,0),(0.5,-0.5),(0,-3),(-0.5,-0.5),(-3,0),(-0.5,0.5)]
+    clipping_polygon = [(0,2),(2,-2),(-2,-2)]
+    clipped_polygon1 = clip(subject_polygon,clipping_polygon)
+    
+    # check if works with numpy
+    subject_polygon = np.array(subject_polygon)
+    clipping_polygon = np.array(clipping_polygon)
+    clipped_polygon2 = clip(subject_polygon,clipping_polygon)
     
