@@ -19,7 +19,7 @@ clip = PolygonClipper(warn_if_empty = False)
 clipped_polygon = clip(subject_polygon,clipping_polygon)
 ```
 
-Make sure that the vertices in `subject_polygon` and `clipping_polygon` are in clockwise order. If `warn_if_empty = True`, then you will get a warning if no intersections were found.
+Make sure that the vertices in `subject_polygon` and `clipping_polygon` are [arranged in clockwise order](https://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order/1180256). If `warn_if_empty = True`, then you will get a warning if no intersections were found.
 
  **PyTorch**
 
@@ -38,7 +38,7 @@ clip = PolygonClipper(warn_if_empty = False)
 clipped_polygon = clip(subject_polygon,clipping_polygon)
 ```
 
-It is assumed that `clipping_polygon` has `requires_grad = True` only. Make sure that the vertices in `subject_polygon` and `clipping_polygon` are in clockwise order. If `warn_if_empty = True`, then you will get a warning if no intersections were found.
+It is assumed that `clipping_polygon` has `requires_grad = True` only. Make sure that the vertices in `subject_polygon` and `clipping_polygon` are [arranged in clockwise order](https://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order/1180256). If `warn_if_empty = True`, then you will get a warning if no intersections were found.
 
 ## Explanation
 
