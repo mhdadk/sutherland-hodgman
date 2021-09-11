@@ -45,9 +45,11 @@ The next step is to pick the first two vertices defined in the `S` array. These 
 
 We then want to check if the red points are inside the clipping polygon. Since the vertices that define the clipping polygon in the `C` array are arranged in clockwise order, then we can check if the red points are inside the clipping polygon by checking that the red points are "to the right" of the line connecting the blue points. Given any two points `A` and `B`, which are defined by the coordinates `(A_x,A_y)` and `(B_x,B_y)` respectively, and a third point `P` defined by the coordinates `(P_x,P_y)`, which are shown in figure 4,
 
-<img src="figures/check_inside.svg" style="zoom:125%;" />
+<img src="figures/check_inside.svg" style="zoom:200%;" />
 
 <div style="text-align:center;font-weight:bold"">Figure 4</div>
+
+
 
 we can check if the point `P` is to the right of the line connecting points `A` and `B` by computing:
 
