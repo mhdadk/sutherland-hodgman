@@ -33,11 +33,15 @@ For example, suppose that the subject polygon `S` and the clipping polygon `C` a
 
 
 
+
+
 The first step of the Sutherland-Hodgman algorithm is to pick the first two vertices defined in the `C` array. These are the blue points marked as `C_1` and `C_2` respectively  in figure 2.
 
 <img src="figures/step2.svg" style="zoom:125%;" />
 
 <div style="text-align:center;font-weight:bold"">Figure 2</div>
+
+
 
 
 
@@ -49,11 +53,15 @@ The next step is to pick the first two vertices defined in the `S` array. These 
 
 
 
+
+
 We then want to check if the red points are inside the clipping polygon. Since the vertices that define the clipping polygon in the `C` array are arranged in clockwise order, then we can check if the red points are inside the clipping polygon by checking that the red points are "to the right" of the line connecting the blue points. Given any two points `A` and `B`, which are defined by the coordinates `(A_x,A_y)` and `(B_x,B_y)` respectively, and a third point `P` defined by the coordinates `(P_x,P_y)`, which are shown in figure 4,
 
 <img src="figures/check_inside.svg" style="zoom:125%;" />
 
 <div style="text-align:center;font-weight:bold"">Figure 4</div>
+
+
 
 
 
@@ -70,6 +78,8 @@ In figure 3, the point `S_1` is to the left of the line connecting points `C_1` 
 <img src="figures/step4.svg" style="zoom:125%;" />
 
 <div style="text-align:center;font-weight:bold"">Figure 5</div>
+
+
 
 
 
@@ -90,11 +100,15 @@ Next, we would choose the next two points in the subject polygon, which are mark
 
 
 
+
+
 We can then repeat this entire procedure for all pairs of consecutive points in the subject polygon to get the saved points marked in green in figure 7.
 
 <img src="figures/step6.svg" style="zoom:125%;" />
 
 <div style="text-align:center;font-weight:bold"">Figure 7</div>
+
+
 
 
 
