@@ -5,7 +5,7 @@ import warnings
 
 class PolygonClipper:
     
-    def __init___(self,warn_if_empty=True):
+    def __init__(self,warn_if_empty=True):
         self.warn_if_empty = warn_if_empty
     
     def is_inside(self,p1,p2,q):
