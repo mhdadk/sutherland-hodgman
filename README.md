@@ -9,10 +9,8 @@
 import numpy as np
 from SH import PolygonClipper
 
-subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
-clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
-subject_polygon = np.array(subject_polygon)
-clipping_polygon = np.array(clipping_polygon)
+subject_polygon = np.array([[-1,1],[1,1],[1,-1],[-1,-1]])
+clipping_polygon = np.array([[0,0],[0,2],[2,2],[2,0]])
 
 clip = PolygonClipper(warn_if_empty = False)
 
@@ -27,11 +25,8 @@ Make sure that the vertices in `subject_polygon` and `clipping_polygon` are [arr
 import torch
 from SH_diff import PolygonClipper
 
-subject_polygon = [(-1,1),(1,1),(1,-1),(-1,-1)]
-clipping_polygon = [(0,0),(0,2),(2,2),(2,0)]
-subject_polygon = torch.tensor(subject_polygon)
-clipping_polygon = torch.tensor(clipping_polygon).float()
-clipping_polygon.requires_grad = True
+subject_polygon = torch.tensor([[-1.,1.],[1.,1.],[1.,-1.],[-1.,-1.]])
+clipping_polygon = torch.tensor([[0.,0.],[0.,2.],[2.,2.],[2.,0.]],requires_grad=True)
 
 clip = PolygonClipper(warn_if_empty = False)
 
